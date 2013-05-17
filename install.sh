@@ -24,7 +24,13 @@ elif [[ $os == "Linux" ]]; then
     echo "please install exuberant-ctags by yourself."
   fi
 elif [[ $os == "Darwin" ]]; then
-  echo "please install exuberant-ctags by yourself."
+  if which brew &> /dev/null; then
+    brew install ctags-exuberant
+  elif which port&> /dev/null; then
+    port install ctags
+  else
+    echo "please install exuberant-ctags by yourself."
+  fi
 fi
 git submodule update --init --recursive
 git submodule foreach git checkout master
