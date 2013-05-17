@@ -34,6 +34,13 @@ elif [[ $os == "Darwin" ]]; then
     echo "please install exuberant-ctags by yourself."
   fi
 fi
+
+#install gotags
+(cd .vim;
+mkdir -p gotags;
+export gotags=`pwd`;
+go get -u github.com/jstemmer/gotags)
+
 git submodule update --init --recursive
 git submodule foreach git checkout master
 echo "run BundleUpdate in vim to update bundled modules"
