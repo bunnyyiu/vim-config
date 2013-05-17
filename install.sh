@@ -3,6 +3,7 @@
 currPath="$( cd "$( dirname "$0" )" && pwd)"
 os=`uname`
 backup_opt="--backup"
+ctags_version="ctags-5.8"
 if [[ $os == "Darwin" ]]; then
   #no --backup option in Mac
   backup_opt=""
@@ -12,9 +13,10 @@ ln -sf $currPath/.vim $HOME $backup_opt
 
 # install ctags
 if [[ $os == "SunOS" ]]; then
-  wget http://prdownloads.sourceforge.net/ctags/ctags-5.8.tar.gz
-  tar -xvf ctags-5.8.tar.gz
-  (cd ctags-5.8; ./configure; make; make install)
+  wget http://prdownloads.sourceforge.net/ctags/$ctags_version.tar.gz
+  tar -xvf $ctags_version.tar.gz
+  (cd $ctags_version; ./configure; make; make install)
+  rm -rf $ctags_version*
 elif [[ $os == "Linux" ]]; then
   if which apt-get &> /dev/null; then
     sudo apt-get install exuberant-ctags
