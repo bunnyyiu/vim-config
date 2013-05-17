@@ -10,8 +10,10 @@ call vundle#rc()
 Bundle 'gmarik/vundle'
 
 Bundle 'tpope/vim-fugitive'
+
 Bundle 'Lokaltog/vim-easymotion'
   let g:EasyMotion_leader_key = "<Leader>"
+
 Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
 
 Bundle 'scrooloose/nerdtree'
@@ -32,7 +34,7 @@ Bundle 'bunnyyiu/vim-jst'
   let g:indent_jst_block = 0
   au BufNewFile,BufRead *.ejs set filetype=jst
 
-Bundle 'walm/jshint.vim.git'
+Bundle 'walm/jshint.vim'
   " Enable error highlight
   let g:JSHintHighlightErrorLine = 1
 
@@ -41,6 +43,8 @@ Bundle 'majutsushi/tagbar'
   \ 'ctagsbin' : '~/.vim/doctorjs/bin/jsctags.js'
   \ }
   nmap <F8> :TagbarToggle<CR>
+
+Bundle 'tpope/vim-surround'
 
 " vim-scripts repos
 Bundle 'L9'
