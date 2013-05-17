@@ -44,7 +44,6 @@ Bundle 'majutsushi/tagbar'
   \ 'ctagsbin' : '~/.vim/doctorjs/bin/jsctags.js'
   \ }
 
-  au BufNewFile,BufRead *.go set filetype=go
   let g:tagbar_type_go = {
   \ 'ctagstype' : 'go',
   \ 'kinds'     : [
@@ -72,6 +71,8 @@ Bundle 'majutsushi/tagbar'
   \ 'ctagsbin'  : '.vim/gotags/bin/gotags',
   \ 'ctagsargs' : '-sort -silent'
   \ }
+
+Bundle 'jnwhiteh/vim-golang.git'
 
 Bundle 'tpope/vim-surround'
 
