@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 currPath="$( cd "$( dirname "$0" )" && pwd)"
 os=`uname`
