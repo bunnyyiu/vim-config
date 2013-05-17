@@ -36,6 +36,12 @@ Bundle 'walm/jshint.vim.git'
   " Enable error highlight
   let g:JSHintHighlightErrorLine = 1
 
+Bundle 'majutsushi/tagbar'
+  let g:tagbar_type_javascript = {
+  \ 'ctagsbin' : '~/.vim/doctorjs/bin/jsctags.js'
+  \ }
+  nmap <F8> :TagbarToggle<CR>
+
 " vim-scripts repos
 Bundle 'L9'
 Bundle 'FuzzyFinder'

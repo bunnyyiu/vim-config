@@ -31,3 +31,9 @@
 [submodule ".vim/bundle/vundle"]
 	path = .vim/bundle/vundle
 	url = git://github.com/gmarik/vundle.git
+[submodule ".vim/doctorjs"]
+	path = .vim/doctorjs
+	url = git://github.com/mozilla/doctorjs.git
+[submodule ".vim/bundle/tagbar"]
+	path = .vim/bundle/tagbar
+	url = git://github.com/majutsushi/tagbar.git
