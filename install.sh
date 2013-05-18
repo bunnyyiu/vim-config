@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-currPath="$( cd "$( dirname "$0" )" && pwd)"
+current_path="$( cd "$( dirname "$0" )" && pwd)"
 os=`uname`
 ctags_version="ctags-5.8"
 backup_opt="--backup"
@@ -52,5 +52,6 @@ git submodule foreach git checkout master
 echo "run BundleUpdate in vim to update bundled modules"
 
 #install .vimrc & .vim
-ln -sf $currPath/.vimrc $HOME $backup_opt
-ln -sf $currPath/.vim $HOME $backup_opt
+ln -sf $current_path/.vimrc $HOME $backup_opt
+ln -sf $current_path/.vim $HOME $backup_opt
+echo "created symbolic link to $HOME/.vimrc & $HOME/.vim"
