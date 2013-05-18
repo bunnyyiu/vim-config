@@ -37,6 +37,8 @@ Bundle 'bunnyyiu/vim-jst'
 Bundle 'walm/jshint.vim'
   " Enable error highlight
   let g:JSHintHighlightErrorLine = 1
+  " Run JShint after file saved
+  autocmd FileType javascript autocmd BufWritePost * JSHint
 
 Bundle 'majutsushi/tagbar'
   nmap <F8> :TagbarToggle<CR>
