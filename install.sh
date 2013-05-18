@@ -2,21 +2,23 @@
 
 currPath="$( cd "$( dirname "$0" )" && pwd)"
 os=`uname`
-backup_opt="--backup"
 ctags_version="ctags-5.8"
+backup_opt="--backup"
+
 if [[ $os == "Darwin" ]]; then
   #no --backup option in Mac
   backup_opt=""
 fi
-ln -sf $currPath/.vimrc $HOME $backup_opt
-ln -sf $currPath/.vim $HOME $backup_opt
 
 # install ctags
 if [[ $os == "SunOS" ]]; then
-  wget http://prdownloads.sourceforge.net/ctags/$ctags_version.tar.gz
-  tar -xvf $ctags_version.tar.gz
-  (cd $ctags_version; ./configure; make; make install)
-  rm -rf $ctags_version*
+  if !which ctags &> /dev/null; then
+    wget http://prdownloads.sourceforge.net/ctags/$ctags_version.tar.gz
+    tar -xvf $ctags_version.tar.gz
+    (cd $ctags_version; ./configure; make; make install)
+    rm -rf $ctags_version*
+    echo "ctags installed"
+  fi
 elif [[ $os == "Linux" ]]; then
   if which apt-get &> /dev/null; then
     sudo apt-get install exuberant-ctags
@@ -44,3 +46,7 @@ go get -u github.com/jstemmer/gotags)
 git submodule update --init --recursive
 git submodule foreach git checkout master
 echo "run BundleUpdate in vim to update bundled modules"
+
+#install .vimrc & .vim
+ln -sf $currPath/.vimrc $HOME $backup_opt
+ln -sf $currPath/.vim $HOME $backup_opt
