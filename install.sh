@@ -38,10 +38,14 @@ elif [[ $os == "Darwin" ]]; then
 fi
 
 #install gotags
-(cd .vim;
-mkdir -p gotags;
-export gotags=`pwd`;
-go get -u github.com/jstemmer/gotags)
+if which go &> /dev/null; then
+  (cd .vim;
+  mkdir -p gotags;
+  export gotags=`pwd`;
+  go get -u github.com/jstemmer/gotags)
+else
+  echo "go lang not existed. please install gotags by yourself."
+fi
 
 git submodule update --init --recursive
 git submodule foreach git checkout master
