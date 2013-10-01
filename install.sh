@@ -10,6 +10,18 @@ if [[ $os == "Darwin" ]]; then
   backup_opt=""
 fi
 
+installVimDirectory() {
+  mkdir -p ~/.vim
+}
+
+installVundle() {
+  if [ -d ~/.vim/bundle/vundle ]; then
+    (cd ~/.vim/bundle/vundle; git pull)
+  else
+    git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
+  fi
+}
+
 installCtags() {
   #skip if installed
   if which ctags &> /dev/null; then
@@ -93,21 +105,15 @@ installJShint() {
   fi
 }
 
-#update git submodule
-updateGitSubmodule () {
-  git submodule update --init --recursive
-  git submodule foreach git checkout master
-  echo "run BundleUpdate in vim to update bundled modules"
-}
-
 #install .vimrc & .vim
-installVimConfigs() {
+installVimConfig() {
   ln -sf $current_path/.vimrc $HOME $backup_opt
-  ln -sf $current_path/.vim $HOME $backup_opt
-  echo "created symbolic link to $HOME/.vimrc & $HOME/.vim"
+  echo "created symbolic link to $HOME/.vimrc"
 }
 
+installVimDirectory
+installVundle
 installGoTags
 installJShint
-updateGitSubmodule
-installVimConfigs
+installVimConfig
+echo "run BundleUpdate in vim to update bundled modules"
