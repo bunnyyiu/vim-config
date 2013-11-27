@@ -171,9 +171,10 @@ Bundle 'Shougo/neocomplcache.vim'
 " vim-scripts repos
 Bundle 'L9'
 Bundle 'FuzzyFinder'
+Bundle 'wincent/Command-T'
 
 " non github repos
-Bundle 'git://git.wincent.com/command-t.git'
+
 " ...
 
 filetype plugin indent on     " required!
