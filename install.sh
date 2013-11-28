@@ -3,12 +3,6 @@
 current_path="$( cd "$( dirname "$0" )" && pwd)"
 os=`uname`
 ctags_version="ctags-5.8"
-backup_opt="--backup"
-
-if [[ $os == "Darwin" ]]; then
-  #no --backup option in Mac
-  backup_opt=""
-fi
 
 installVimDirectory() {
   mkdir -p ~/.vim
