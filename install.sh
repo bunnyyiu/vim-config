@@ -39,7 +39,7 @@ installCtags() {
       sudo apt-get install exuberant-ctags
     elif which yum &> /dev/null; then
       sudo yum install exuberant-ctags
-      echo "please install exuberant-ctags by yourself."
+      echo "Please install exuberant-ctags by yourself."
     fi
   elif [ "$os" == "Darwin" ]; then
     if which brew &> /dev/null; then
@@ -68,7 +68,7 @@ installGoTags() {
 
   installCtags
   if [ $ctags_installed != true ]; then
-    echo "please install exuberant-ctags by yourself."
+    echo "Please install exuberant-ctags by yourself."
     return
   fi
 
@@ -77,7 +77,7 @@ installGoTags() {
   export GOPATH=~/.vim/gotags;
   go get -u github.com/jstemmer/gotags)
   if which gotags &> /dev/null; then
-    echo "installed gotags"
+    echo "Installed gotags"
   else
     echo "Error in installing gotags"
   fi
@@ -102,18 +102,23 @@ installJShint() {
     echo "JSHint installed"
   else
     echo "Error in installing JShint"
+    return
   fi
 }
 
-#install .vimrc & .vim
-installVimConfig() {
-  ln -sf $current_path/.vimrc $HOME $backup_opt
-  echo "created symbolic link to $HOME/.vimrc"
+installConfigs() {
+  cp $current_path/.vimrc $HOME
+  echo "Installed .vimrc to $HOME/.vimrc"
+
+  if which jshint &> /dev/null; then
+    cp $current_path/.jshintrc $HOME
+    echo "Installed .jshintrc to $HOME/.jshintrc"
+  fi
 }
 
 installVimDirectory
 installVundle
 installGoTags
 installJShint
-installVimConfig
-echo "run BundleUpdate in vim to update bundled modules"
+installConfigs
+echo "Run BundleUpdate in vim to update bundled modules"
