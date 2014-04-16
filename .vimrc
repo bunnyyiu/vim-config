@@ -168,7 +168,7 @@ Bundle 'Shougo/neocomplcache.vim'
   " https://github.com/c9s/perlomni.vim
   let g:neocomplcache_omni_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
 
-Bundles 'altercation/vim-colors-solarized'
+Bundle 'altercation/vim-colors-solarized'
 set background=dark
 colorscheme solarized
 
