@@ -169,7 +169,12 @@ Bundle 'Shougo/neocomplcache.vim'
   let g:neocomplcache_omni_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
 
 Bundle 'altercation/vim-colors-solarized'
-set background=dark
+syntax enable
+if has('gui_running')
+  set background=light
+else
+  set background=dark
+endif
 colorscheme solarized
 
 " vim-scripts repos
