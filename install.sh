@@ -40,6 +40,8 @@ installCtags() {
       brew install ctags-exuberant
     elif which port&> /dev/null; then
       port install ctags
+    else
+      echo "Please install brew or port by yourself and run this setup again."
     fi
   fi
 
