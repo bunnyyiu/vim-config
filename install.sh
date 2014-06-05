@@ -33,6 +33,7 @@ installCtags() {
       sudo apt-get install exuberant-ctags
     elif which yum &> /dev/null; then
       sudo yum install exuberant-ctags
+    else
       echo "Please install exuberant-ctags by yourself."
     fi
   elif [ "$os" == "Darwin" ]; then
