@@ -29,16 +29,6 @@ Plugin 'walm/jshint.vim'
   " Run JShint after file saved
   autocmd FileType javascript autocmd BufWritePost * JSHint
 
-Plugin 'altercation/vim-colors-solarized'
-  syntax enable
-  if has('gui_running')
-    set background=light
-  else
-    set background=dark
-  endif
-  "load color scheme, slient if not found
-  :silent! colorscheme solarized
-
 Plugin 'fatih/vim-go'
 
 Plugin 'Valloric/YouCompleteMe'
