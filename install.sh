@@ -19,7 +19,7 @@ installVundle() {
     git clone https://github.com/gmarik/Vundle.vim.git \
       $HOME/.vim/bundle/Vundle.vim
   fi
-  vim +PluginInstall +qall
+  vim +PluginClean +PluginInstall +qall
 }
 
 installYouCompleteMe() {
