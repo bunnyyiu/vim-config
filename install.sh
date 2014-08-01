@@ -3,6 +3,32 @@
 current_path="$( cd "$( dirname "$0" )" && pwd)"
 os=`uname`
 
+checkIfOSSupported() {
+  supported_os=(SunOS Linux Darwin)
+  if [[ ! ${supported_os[@]} =~ $os ]]; then
+    echo "Sorry, your OS is not supported."
+    echo "This script only support ${supported_os[*]}"
+    exit 1
+  fi
+}
+
+checkIfCommandAvailable() {
+  command=$1
+  if ! which $command > /dev/null; then
+    echo "Sorry, command '$command' is not installed, \
+please install it and rerun this script."
+    exit 1
+  fi
+}
+
+checkIfDependenceInstalled() {
+  commands=(vim git node npm go)
+  for command in "${commands[@]}"
+  do
+    checkIfCommandAvailable $command
+  done
+}
+
 installVIMConfig() {
   cp $current_path/vimrc $HOME/.vimrc
   echo "Installed vimrc to $HOME/.vimrc"
@@ -23,22 +49,14 @@ installVundle() {
 }
 
 installYouCompleteMe() {
-  pushd $HOME/.vim/bundle/YouCompleteMe
+  pushd $HOME/.vim/bundle/YouCompleteMe > /dev/null
   ./install.sh --clang-completer
-  popd
+  popd > /dev/null
 }
 
 #install JSHint
 installJSHint() {
   if which jshint &> /dev/null; then
-    return
-  fi
-  if ! which node &> /dev/null; then
-    echo "node.js is not installed, please install node and rerun this script."
-    return
-  fi
-  if ! which npm &> /dev/null; then
-    echo "npm is not installed, please install npm and rerun this script"
     return
   fi
 
@@ -58,10 +76,16 @@ installJSHintConfig() {
   fi
 }
 
+#check OS and dependences
+checkIfOSSupported
+checkIfDependenceInstalled
+
 installVIMConfig
 installVIMDirectory
 installVundle
 installYouCompleteMe
 installJSHint
 installJSHintConfig
-printf "The Installation is complete!\nHappy Coding!\n"
+
+echo "The installation is complete!"
+echo "Happy Coding!"
