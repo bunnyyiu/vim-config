@@ -49,9 +49,7 @@ installVundle() {
 }
 
 installYouCompleteMe() {
-  pushd $HOME/.vim/bundle/YouCompleteMe > /dev/null
-  ./install.sh --clang-completer
-  popd > /dev/null
+  (cd $HOME/.vim/bundle/YouCompleteMe; ./install.sh --clang-completer)
 }
 
 #install JSHint
@@ -65,15 +63,13 @@ installJSHint() {
     echo "JSHint installed"
   else
     echo "Error in installing JShint"
-    return
+    exit 1
   fi
 }
 
 installJSHintConfig() {
-  if which jshint &> /dev/null; then
-    cp $current_path/jshintrc $HOME/.jshintrc
-    echo "Installed jshintrc to $HOME/.jshintrc"
-  fi
+  cp $current_path/jshintrc $HOME/.jshintrc
+  echo "Installed jshintrc to $HOME/.jshintrc"
 }
 
 #check OS and dependences
