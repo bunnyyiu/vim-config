@@ -54,10 +54,6 @@ installYouCompleteMe() {
 
 #install JSHint
 installJSHint() {
-  if which jshint &> /dev/null; then
-    return
-  fi
-
   npm install jshint -g
   if which jshint &> /dev/null; then
     echo "JSHint installed"

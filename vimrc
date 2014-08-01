@@ -11,6 +11,7 @@ call vundle#begin()
 " let Vundle manage Vundle, required!
 Plugin 'gmarik/Vundle.vim'
 
+" JavaScript support
 Plugin 'pangloss/vim-javascript'
   let g:html_indent_inctags = "body,head,tbody,ul,li,p"
   "no indent on first line of script"
@@ -19,26 +20,30 @@ Plugin 'pangloss/vim-javascript'
   let g:html_indent_style1 = "zero"
   au BufNewFile,BufRead *.json set filetype=javascript
 
+" JST support
 Plugin 'bunnyyiu/vim-jst'
   let g:indent_jst_block = 0
   au BufNewFile,BufRead *.ejs set filetype=jst
 
+" JavaScript syntax check
 Plugin 'walm/jshint.vim'
   " Enable error highlight
   let g:JSHintHighlightErrorLine = 1
   " Run JShint after file saved
   autocmd FileType javascript autocmd BufWritePost * JSHint
 
+" Go lang support
 Plugin 'fatih/vim-go'
-
 Plugin 'Valloric/YouCompleteMe'
 
+" Easy navigation
 Plugin 'Lokaltog/vim-easymotion'
   let g:EasyMotion_leader_key = "<Leader>"
   let g:EasyMotion_do_mapping = 0 " Disable default mappings
 
   " Bi-directional find motion
-  " Jump to anywhere you want with minimal keystrokes, with just one key binding.
+  " Jump to anywhere you want with minimal keystrokes,
+  " with just one key binding.
   " `s{char}{label}`
   nmap s <Plug>(easymotion-s)
   " or
@@ -53,8 +58,10 @@ Plugin 'Lokaltog/vim-easymotion'
   map <Leader>j <Plug>(easymotion-j)
   map <Leader>k <Plug>(easymotion-k)
 
+" Write HTML faster
 Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
 
+" Directory listing
 Plugin 'scrooloose/nerdtree'
   "open NERDTree with Ctrl+n
   map <F3> :NERDTreeToggle<CR>
@@ -84,7 +91,7 @@ nnoremap <F2> :set nonumber!<CR>:set foldcolumn=0<CR>
 highlight OverLength ctermbg=red ctermfg=white guibg=#592929
 match OverLength /\%81v.\+/
 
-" Highlight line end wit whitespace
+" Highlight line end with whitespace
 highlight ExtraWhitespace ctermbg=darkgreen guibg=lightgreen
 2match ExtraWhitespace /\s\+$/
 
