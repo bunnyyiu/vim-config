@@ -29,8 +29,8 @@ Plugin 'bunnyyiu/vim-jst'
 Plugin 'walm/jshint.vim'
   " Enable error highlight
   let g:JSHintHighlightErrorLine = 1
-  " Run JShint after file saved
-  autocmd FileType javascript autocmd BufWritePost * JSHint
+  " Uncomment below line to enable run JShint after file saved
+  " autocmd FileType javascript autocmd BufWritePost * JSHint
 
 " Go lang support
 Plugin 'fatih/vim-go'
