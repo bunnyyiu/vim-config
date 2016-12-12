@@ -68,6 +68,11 @@ Plugin 'scrooloose/nerdtree'
   "open a NERDTree automatically when vim starts up if no files were specified
   autocmd vimenter * if !argc() | NERDTree | endif
 
+" Groovy syntax
+Plugin 'vim-scripts/groovy.vim'
+  au BufReadPost Jenkinsfile set syntax=groovy
+  au BufReadPost Jenkinsfile set filetype=groovy
+
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on     " required
