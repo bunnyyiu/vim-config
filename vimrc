@@ -92,9 +92,9 @@ filetype plugin indent on     " required
 " F2 for toggle linenum
 nnoremap <F2> :set nonumber!<CR>:set foldcolumn=0<CR>
 
-" Highlight line over 80
+" Highlight line over 120
 highlight OverLength ctermbg=red ctermfg=white guibg=#592929
-match OverLength /\%81v.\+/
+match OverLength /\%121v.\+/
 
 " Highlight line end with whitespace
 highlight ExtraWhitespace ctermbg=darkgreen guibg=lightgreen
