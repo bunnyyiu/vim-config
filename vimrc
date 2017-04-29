@@ -73,6 +73,18 @@ Plugin 'vim-scripts/groovy.vim'
   au BufReadPost Jenkinsfile set syntax=groovy
   au BufReadPost Jenkinsfile set filetype=groovy
 
+" Syntax checking hacks for vim
+Plugin 'vim-syntastic/syntastic'
+  set statusline+=%#warningmsg#
+  set statusline+=%{SyntasticStatuslineFlag()}
+  set statusline+=%*
+
+  let g:syntastic_always_populate_loc_list = 1
+  let g:syntastic_auto_loc_list = 1
+  let g:syntastic_check_on_open = 1
+  let g:syntastic_check_on_wq = 0
+  let g:syntastic_javascript_checkers = ['eslint']
+
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on     " required
@@ -121,5 +133,5 @@ set cindent
 set smartindent
 set autoindent
 set expandtab
-set tabstop=2
-set shiftwidth=2
+set tabstop=4
+set shiftwidth=4
