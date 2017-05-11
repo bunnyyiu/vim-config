@@ -86,7 +86,7 @@ Plugin 'vim-syntastic/syntastic'
   let g:syntastic_javascript_checkers = ['eslint']
 
 Plugin 'JamshedVesuna/vim-markdown-preview'
-    let vim_markdown_preview_github=1
+  let vim_markdown_preview_github=1
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required

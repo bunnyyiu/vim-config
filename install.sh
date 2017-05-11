@@ -34,7 +34,7 @@ installVIMConfig() {
   echo "Installed vimrc to $HOME/.vimrc"
 }
 
-installVIMDirectory() {
+createVIMDirectory() {
   mkdir -p ~/.vim
 }
 
@@ -49,7 +49,7 @@ installVundle() {
 }
 
 installYouCompleteMe() {
-  (cd $HOME/.vim/bundle/YouCompleteMe; ./install.sh --clang-completer)
+  (cd $HOME/.vim/bundle/YouCompleteMe; ./install.py --clang-completer)
 }
 
 #install JSHint
@@ -75,7 +75,7 @@ installGrip() {
   elif which pip &> /dev/null; then
     pip install grip
   fi
-  if which grip &> /dev/null; then
+  if ! which grip &> /dev/null; then
     echo "grip is not installed"
   fi
 }
@@ -84,8 +84,8 @@ installGrip() {
 checkIfOSSupported
 checkIfDependenceInstalled
 
+createVIMDirectory
 installVIMConfig
-installVIMDirectory
 installVundle
 installYouCompleteMe
 installJSHint
