@@ -68,6 +68,18 @@ installJSHintConfig() {
   echo "Installed jshintrc to $HOME/.jshintrc"
 }
 
+# This is for markdown preview
+installGrip() {
+  if which brew &> /dev/null; then
+    brew install grip
+  elif which pip &> /dev/null; then
+    pip install grip
+  fi
+  if which grip &> /dev/null; then
+    echo "grip is not installed"
+  fi
+}
+
 #check OS and dependences
 checkIfOSSupported
 checkIfDependenceInstalled
@@ -78,6 +90,7 @@ installVundle
 installYouCompleteMe
 installJSHint
 installJSHintConfig
+installGrip
 
 echo "The installation is complete!"
 echo "Happy Coding!"
