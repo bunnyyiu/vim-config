@@ -25,13 +25,6 @@ Plugin 'bunnyyiu/vim-jst'
   let g:indent_jst_block = 0
   au BufNewFile,BufRead *.ejs set filetype=jst
 
-" JavaScript syntax check
-Plugin 'walm/jshint.vim'
-  " Enable error highlight
-  let g:JSHintHighlightErrorLine = 1
-  " Uncomment below line to enable run JShint after file saved
-  " autocmd FileType javascript autocmd BufWritePost * JSHint
-
 " Go lang support
 Plugin 'fatih/vim-go'
 Plugin 'Valloric/YouCompleteMe'
@@ -84,6 +77,7 @@ Plugin 'vim-syntastic/syntastic'
   let g:syntastic_check_on_open = 1
   let g:syntastic_check_on_wq = 0
   let g:syntastic_javascript_checkers = ['eslint']
+  let g:syntastic_javascript_eslint_exec = 'eslint'
 
 Plugin 'JamshedVesuna/vim-markdown-preview'
   let vim_markdown_preview_github=1

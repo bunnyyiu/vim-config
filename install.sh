@@ -52,20 +52,14 @@ installYouCompleteMe() {
   (cd $HOME/.vim/bundle/YouCompleteMe; ./install.py --clang-completer)
 }
 
-#install JSHint
-installJSHint() {
-  npm install jshint -g
-  if which jshint &> /dev/null; then
-    echo "JSHint installed"
+installESlint() {
+  npm install eslint -g
+  if which eslint &> /dev/null; then
+    echo "ESLint installed"
   else
-    echo "Error in installing JShint"
+    echo "Error in installing ESLint"
     exit 1
   fi
-}
-
-installJSHintConfig() {
-  cp $current_path/jshintrc $HOME/.jshintrc
-  echo "Installed jshintrc to $HOME/.jshintrc"
 }
 
 # This is for markdown preview
@@ -88,9 +82,7 @@ createVIMDirectory
 installVIMConfig
 installVundle
 installYouCompleteMe
-installJSHint
-installJSHintConfig
+installESlint
 installGrip
 
-echo "The installation is complete!"
 echo "Happy Coding!"
