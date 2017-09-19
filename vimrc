@@ -101,6 +101,8 @@ filetype plugin indent on     " required
 " F2 for toggle linenum
 nnoremap <F2> :set nonumber!<CR>:set foldcolumn=0<CR>
 
+inoremap jk <esc>
+
 " Highlight line over 120
 highlight OverLength ctermbg=red ctermfg=white guibg=#592929
 match OverLength /\%121v.\+/
