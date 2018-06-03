@@ -63,8 +63,8 @@ Plugin 'scrooloose/nerdtree'
 
 " Groovy syntax
 Plugin 'vim-scripts/groovy.vim'
-  au BufReadPost Jenkinsfile set syntax=groovy
-  au BufReadPost Jenkinsfile set filetype=groovy
+  au BufReadPost Jenkinsfile* set syntax=groovy
+  au BufReadPost Jenkinsfile* set filetype=groovy
 
 " Syntax checking hacks for vim
 Plugin 'vim-syntastic/syntastic'
@@ -81,6 +81,8 @@ Plugin 'vim-syntastic/syntastic'
 
 Plugin 'JamshedVesuna/vim-markdown-preview'
   let vim_markdown_preview_github=1
+
+Plugin 'hashivim/vim-hashicorp-tools'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
