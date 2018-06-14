@@ -59,7 +59,7 @@ Plugin 'scrooloose/nerdtree'
   "open NERDTree with Ctrl+n
   map <F3> :NERDTreeToggle<CR>
   "open a NERDTree automatically when vim starts up if no files were specified
-  autocmd vimenter * if !argc() | NERDTree | endif
+  "autocmd vimenter * if !argc() | NERDTree | endif
 
 " Groovy syntax
 Plugin 'vim-scripts/groovy.vim'
@@ -114,6 +114,20 @@ filetype plugin indent on     " required
 "
 " see :h vundle for more details or wiki for FAQ
 " Put your non-Plugin stuff after this line
+
+" Install Plug
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
+call plug#begin()
+Plug '/usr/local/opt/fzf'
+Plug 'junegunn/fzf.vim'
+  " Ctrl-P for fzf
+  nnoremap <silent> <C-p> :Files<CR>
+call plug#end()
 
 " Shortcut
 " F2 for toggle linenum

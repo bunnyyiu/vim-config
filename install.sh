@@ -48,6 +48,10 @@ installVundle() {
   vim +PluginClean +PluginInstall +qall
 }
 
+installVundle() {
+  vim +PlugClean +PlugInstall +qall
+}
+
 installYouCompleteMe() {
   (cd $HOME/.vim/bundle/YouCompleteMe; ./install.py --clang-completer --system-libclang)
 }
@@ -74,12 +78,21 @@ installGrip() {
   fi
 }
 
+installFzf() {
+  brew install fzf
+  if ! which fzf &> /dev/null; then
+    echo "fzf is not installed"
+  fi
+}
+
 #check OS and dependences
 checkIfOSSupported
 checkIfDependenceInstalled
 
 createVIMDirectory
 installVIMConfig
+
+installFzf
 installVundle
 installYouCompleteMe
 installESlint
