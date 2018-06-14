@@ -49,7 +49,7 @@ installVundle() {
 }
 
 installYouCompleteMe() {
-  (cd $HOME/.vim/bundle/YouCompleteMe; ./install.py --clang-completer)
+  (cd $HOME/.vim/bundle/YouCompleteMe; ./install.py --clang-completer --system-libclang)
 }
 
 installESlint() {
