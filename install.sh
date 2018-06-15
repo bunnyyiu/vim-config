@@ -38,22 +38,8 @@ createVIMDirectory() {
   mkdir -p ~/.vim
 }
 
-installVundle() {
-  if [ -d $HOME/.vim/bundle/Vundle.vim ]; then
-    (cd $HOME/.vim/bundle/Vundle.vim; git pull)
-  else
-    git clone https://github.com/gmarik/Vundle.vim.git \
-      $HOME/.vim/bundle/Vundle.vim
-  fi
-  vim +PluginClean +PluginInstall +PluginUpdate +qall
-}
-
-installVundle() {
-  vim +PlugUpgrade +PlugClean +PlugInstall +PlugUpdate +qall
-}
-
-installYouCompleteMe() {
-  (cd $HOME/.vim/bundle/YouCompleteMe; ./install.py --clang-completer --system-libclang)
+installPlugin() {
+  vim +PlugUpgrade +PlugClean +PlugUpdate +PlugInstall +qall
 }
 
 installESlint() {
@@ -78,13 +64,6 @@ installGrip() {
   fi
 }
 
-installFzf() {
-  brew install fzf
-  if ! which fzf &> /dev/null; then
-    echo "fzf is not installed"
-  fi
-}
-
 #check OS and dependences
 checkIfOSSupported
 checkIfDependenceInstalled
@@ -92,9 +71,7 @@ checkIfDependenceInstalled
 createVIMDirectory
 installVIMConfig
 
-installFzf
-installVundle
-installYouCompleteMe
+installPlugin
 installESlint
 installGrip
 

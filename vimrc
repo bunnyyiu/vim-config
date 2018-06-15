@@ -1,26 +1,26 @@
-au BufNewFile,BufRead *.json set filetype=javascript
-au BufNewFile,BufRead *.ejs set filetype=jst
-au BufNewFile,BufRead *.go set filetype=go
-au BufNewFile,BufRead Jenkinsfile* set syntax=groovy
-au BufNewFile,BufRead Jenkinsfile* set filetype=groovy
+" Plug Config
+" Install Plug
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
 
-" Vundle Config
-set nocompatible               " be iMproved
-filetype off                   " required!
+call plug#begin('~/.vim/plugged')
 
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-" alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
-
-" let Vundle manage Vundle, required!
-Plugin 'gmarik/Vundle.vim'
-
-Plugin 'Valloric/YouCompleteMe'
+function! BuildYCM(info)
+  " info is a dictionary with 3 fields
+  " - name:   name of the plugin
+  " - status: 'installed', 'updated', or 'unchanged'
+  " - force:  set on PlugInstall! or PlugUpdate!
+  if a:info.status == 'installed' || a:info.force
+    !./install.py --clang-completer --system-libclang
+  endif
+endfunction
+Plug 'Valloric/YouCompleteMe', { 'do': function('BuildYCM') }
 
 " Easy navigation
-Plugin 'Lokaltog/vim-easymotion'
+function! SetupEasyMotion()
   let g:EasyMotion_leader_key = "<Leader>"
   let g:EasyMotion_do_mapping = 0 " Disable default mappings
 
@@ -40,22 +40,28 @@ Plugin 'Lokaltog/vim-easymotion'
   " JK motions: Line motions
   map <Leader>j <Plug>(easymotion-j)
   map <Leader>k <Plug>(easymotion-k)
+endfunction
+Plug 'Lokaltog/vim-easymotion'
+call SetupEasyMotion()
 
 " Write HTML faster
-Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
+Plug 'rstacruz/sparkup', { 'rtp': 'vim/' }
 
 " Directory listing
-Plugin 'scrooloose/nerdtree'
+function! SetupNerdtree()
   "open NERDTree with Ctrl+n
   map <F3> :NERDTreeToggle<CR>
   "open a NERDTree automatically when vim starts up if no files were specified
   "autocmd vimenter * if !argc() | NERDTree | endif
+endfunction
+Plug 'scrooloose/nerdtree'
+call SetupNerdtree()
 
 " Groovy syntax
-Plugin 'vim-scripts/groovy.vim'
+Plug 'vim-scripts/groovy.vim'
 
 " Syntax checking hacks for vim
-Plugin 'vim-syntastic/syntastic'
+function! SetupSyntastic()
   set statusline+=%#warningmsg#
   set statusline+=%{SyntasticStatuslineFlag()}
   set statusline+=%*
@@ -66,19 +72,24 @@ Plugin 'vim-syntastic/syntastic'
   let g:syntastic_check_on_wq = 0
   let g:syntastic_javascript_checkers = ['eslint']
   let g:syntastic_javascript_eslint_exec = 'eslint'
+endfunction
+Plug 'vim-syntastic/syntastic'
+call SetupSyntastic()
 
-Plugin 'JamshedVesuna/vim-markdown-preview'
+" Markdown Preview
+function! SetupMarkdownPreview()
   let vim_markdown_preview_github=1
+endfunction
+Plug 'JamshedVesuna/vim-markdown-preview'
+call SetupMarkdownPreview()
 
-Plugin 'hashivim/vim-hashicorp-tools'
+"Hashicorp Tools"
+Plug 'hashivim/vim-hashicorp-tools'
 
 " For snippets"
 " Track the engine.
-Plugin 'SirVer/ultisnips'
-
-" Snippets are separated from the engine. Add this if you want them:
-Plugin 'honza/vim-snippets'
-Plugin 'bunnyyiu/vim-kubernetes'
+Plug 'SirVer/ultisnips'
+function! SetupUltisnips()
   " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
   let g:UltiSnipsExpandTrigger="<c-j>"
   let g:UltiSnipsJumpForwardTrigger="<c-b>"
@@ -86,55 +97,39 @@ Plugin 'bunnyyiu/vim-kubernetes'
 
   " If you want :UltiSnipsEdit to split your window.
   let g:UltiSnipsEditSplit="vertical"
+endfunction
+call SetupUltisnips()
 
-" All of your Plugins must be added before the following line
-call vundle#end()            " required
-filetype plugin indent on     " required
-" To ignore plugin indent changes, instead use:
-"filetype plugin on
-"
-" Brief help
-" :PluginList       - lists configured plugins
-" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
-" :PluginSearch foo - searches for foo; append `!` to refresh local cache
-" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
-"
-" see :h vundle for more details or wiki for FAQ
-" Put your non-Plugin stuff after this line
-
-" Plug Config
-" Install Plug
-if empty(glob('~/.vim/autoload/plug.vim'))
-  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
-    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
-endif
-
-call plug#begin('~/.vim/plugged')
+" Snippets are separated from the engine. Add this if you want them:
+Plug 'honza/vim-snippets'
+Plug 'bunnyyiu/vim-kubernetes'
 
 "Fuzzy File Finder
-Plug '/usr/local/opt/fzf'
-Plug 'junegunn/fzf.vim', { 'do': ':MapKeyFzf' }
-function! MapKeyFzf()
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+function! SetupFzf()
   " Ctrl-P for fzf
   nnoremap <silent> <C-p> :Files<CR>
 endfunction
+Plug 'junegunn/fzf.vim'
+call SetupFzf()
 
 " JavaScript support
-Plug 'pangloss/vim-javascript', { 'do': ':MapKeyJavascript' }
-function! MapKeyJavascript()
+function! SetupJavascript()
   let g:html_indent_inctags = "body,head,tbody,ul,li,p"
   "no indent on first line of script"
   let g:html_indent_script1 = "zero"
   "no indent on first line of style"
   let g:html_indent_style1 = "zero"
 endfunction
+Plug 'pangloss/vim-javascript'
+call SetupJavascript()
 
 " JST support
-Plug 'bunnyyiu/vim-jst', { 'do': ':MapKeyJST' }
-function! MapKeyJST()
+function! SetupJST()
   let g:indent_jst_block = 0
 endfunction
+Plug 'bunnyyiu/vim-jst'
+call SetupJST()
 
 " Go lang support
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
@@ -178,3 +173,9 @@ set autoindent
 set expandtab
 set tabstop=2
 set shiftwidth=2
+
+au BufNewFile,BufRead *.json set filetype=javascript
+au BufNewFile,BufRead *.ejs set filetype=jst
+au BufNewFile,BufRead *.go set filetype=go
+au BufNewFile,BufRead Jenkinsfile* set syntax=groovy
+au BufNewFile,BufRead Jenkinsfile* set filetype=groovy
