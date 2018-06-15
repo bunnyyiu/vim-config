@@ -1,3 +1,9 @@
+au BufNewFile,BufRead *.json set filetype=javascript
+au BufNewFile,BufRead *.ejs set filetype=jst
+au BufNewFile,BufRead *.go set filetype=go
+au BufNewFile,BufRead Jenkinsfile* set syntax=groovy
+au BufNewFile,BufRead Jenkinsfile* set filetype=groovy
+
 " Vundle Config
 set nocompatible               " be iMproved
 filetype off                   " required!
@@ -11,22 +17,6 @@ call vundle#begin()
 " let Vundle manage Vundle, required!
 Plugin 'gmarik/Vundle.vim'
 
-" JavaScript support
-Plugin 'pangloss/vim-javascript'
-  let g:html_indent_inctags = "body,head,tbody,ul,li,p"
-  "no indent on first line of script"
-  let g:html_indent_script1 = "zero"
-  "no indent on first line of style"
-  let g:html_indent_style1 = "zero"
-  au BufNewFile,BufRead *.json set filetype=javascript
-
-" JST support
-Plugin 'bunnyyiu/vim-jst'
-  let g:indent_jst_block = 0
-  au BufNewFile,BufRead *.ejs set filetype=jst
-
-" Go lang support
-Plugin 'fatih/vim-go'
 Plugin 'Valloric/YouCompleteMe'
 
 " Easy navigation
@@ -63,8 +53,6 @@ Plugin 'scrooloose/nerdtree'
 
 " Groovy syntax
 Plugin 'vim-scripts/groovy.vim'
-  au BufReadPost Jenkinsfile* set syntax=groovy
-  au BufReadPost Jenkinsfile* set filetype=groovy
 
 " Syntax checking hacks for vim
 Plugin 'vim-syntastic/syntastic'
@@ -122,11 +110,35 @@ if empty(glob('~/.vim/autoload/plug.vim'))
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
-call plug#begin()
+call plug#begin('~/.vim/plugged')
+
+"Fuzzy File Finder
 Plug '/usr/local/opt/fzf'
-Plug 'junegunn/fzf.vim'
+Plug 'junegunn/fzf.vim', { 'do': ':MapKeyFzf' }
+function! MapKeyFzf()
   " Ctrl-P for fzf
   nnoremap <silent> <C-p> :Files<CR>
+endfunction
+
+" JavaScript support
+Plug 'pangloss/vim-javascript', { 'do': ':MapKeyJavascript' }
+function! MapKeyJavascript()
+  let g:html_indent_inctags = "body,head,tbody,ul,li,p"
+  "no indent on first line of script"
+  let g:html_indent_script1 = "zero"
+  "no indent on first line of style"
+  let g:html_indent_style1 = "zero"
+endfunction
+
+" JST support
+Plug 'bunnyyiu/vim-jst', { 'do': ':MapKeyJST' }
+function! MapKeyJST()
+  let g:indent_jst_block = 0
+endfunction
+
+" Go lang support
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+
 call plug#end()
 
 " Shortcut
