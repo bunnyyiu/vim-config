@@ -39,7 +39,8 @@ createVIMDirectory() {
 }
 
 installPlugin() {
-  vim +PlugUpgrade +PlugClean +PlugUpdate +PlugInstall +qall
+  vim +PlugUpgrade +qall
+  vim +PlugClean +PlugUpdate +PlugInstall +qall
 }
 
 installESlint() {
@@ -54,11 +55,7 @@ installESlint() {
 
 # This is for markdown preview
 installGrip() {
-  if which brew &> /dev/null; then
-    brew install grip
-  elif which pip &> /dev/null; then
-    pip install grip
-  fi
+  brew install grip
   if ! which grip &> /dev/null; then
     echo "grip is not installed"
   fi
@@ -67,10 +64,13 @@ installGrip() {
 # This install clang-format
 installClangFormat() {
   brew install clang-format
+  if ! which clang-format &> /dev/null; then
+    echo "clang-format is not installed"
+  fi
 }
 
 installGoogleJavaFormat() {
-  if [ ! -f "~/.vim/java/google-java-format-VERSION-all-deps.jar" ]; then
+  if [ ! -f ~/.vim/java/google-java-format-VERSION-all-deps.jar ]; then
     mkdir -p ~/.vim/java
     jar="https://github.com/google/google-java-format/releases/download/google-java-format-1.6/google-java-format-1.6-all-deps.jar"
     wget $jar -O ~/.vim/java/google-java-format-VERSION-all-deps.jar
