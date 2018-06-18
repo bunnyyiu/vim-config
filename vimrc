@@ -1,9 +1,3 @@
-au BufNewFile,BufRead *.json set filetype=javascript
-au BufNewFile,BufRead *.ejs set filetype=jst
-au BufNewFile,BufRead *.go set filetype=go
-au BufNewFile,BufRead Jenkinsfile* set syntax=groovy
-au BufNewFile,BufRead Jenkinsfile* set filetype=groovy
-
 " Plug Config
 " Install Plug
 if empty(glob('~/.vim/autoload/plug.vim'))
@@ -143,7 +137,37 @@ Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 " Groovy indent
 Plug 'vim-scripts/groovyindent-unix'
 
+" Add maktaba and codefmt to the runtimepath.
+" (The latter must be installed before it can be used.)
+Plug 'google/vim-maktaba'
+Plug 'google/vim-codefmt'
+" Also add Glaive, which is used to configure codefmt's maktaba flags. See
+" `:help :Glaive` for usage.
+Plug 'google/vim-glaive'
 call plug#end()
+
+call glaive#Install()
+
+au BufNewFile,BufRead *.json set filetype=javascript
+au BufNewFile,BufRead *.ejs set filetype=jst
+au BufNewFile,BufRead *.go set filetype=go
+au BufNewFile,BufRead Jenkinsfile* set syntax=groovy
+au BufNewFile,BufRead Jenkinsfile* set filetype=groovy
+
+Glaive codefmt plugin[mappings]
+Glaive codefmt google_java_executable="java -jar /Users/bunny.yiu/.vim/java/google-java-format-VERSION-all-deps.jar"
+
+augroup autoformat_settings
+  autocmd FileType bzl AutoFormatBuffer buildifier
+  autocmd FileType c,cpp,proto,javascript AutoFormatBuffer clang-format
+  autocmd FileType dart AutoFormatBuffer dartfmt
+  autocmd FileType go AutoFormatBuffer gofmt
+  autocmd FileType gn AutoFormatBuffer gn
+  autocmd FileType html,css,json AutoFormatBuffer js-beautify
+  autocmd FileType java AutoFormatBuffer google-java-format
+  autocmd FileType python AutoFormatBuffer yapf
+  " Alternative: autocmd FileType python AutoFormatBuffer autopep8
+augroup END
 
 " Shortcut
 " F2 for toggle linenum
