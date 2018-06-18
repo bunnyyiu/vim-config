@@ -1,3 +1,9 @@
+au BufNewFile,BufRead *.json set filetype=javascript
+au BufNewFile,BufRead *.ejs set filetype=jst
+au BufNewFile,BufRead *.go set filetype=go
+au BufNewFile,BufRead Jenkinsfile* set syntax=groovy
+au BufNewFile,BufRead Jenkinsfile* set filetype=groovy
+
 " Plug Config
 " Install Plug
 if empty(glob('~/.vim/autoload/plug.vim'))
@@ -173,9 +179,3 @@ set autoindent
 set expandtab
 set tabstop=2
 set shiftwidth=2
-
-au BufNewFile,BufRead *.json set filetype=javascript
-au BufNewFile,BufRead *.ejs set filetype=jst
-au BufNewFile,BufRead *.go set filetype=go
-au BufNewFile,BufRead Jenkinsfile* set syntax=groovy
-au BufNewFile,BufRead Jenkinsfile* set filetype=groovy
