@@ -155,7 +155,7 @@ au BufNewFile,BufRead Jenkinsfile* set syntax=groovy
 au BufNewFile,BufRead Jenkinsfile* set filetype=groovy
 
 Glaive codefmt plugin[mappings]
-Glaive codefmt google_java_executable="java -jar /Users/bunny.yiu/.vim/java/google-java-format-VERSION-all-deps.jar"
+Glaive codefmt google_java_executable="java -jar ~/.vim/java/google-java-format-VERSION-all-deps.jar"
 
 augroup autoformat_settings
   autocmd FileType bzl AutoFormatBuffer buildifier

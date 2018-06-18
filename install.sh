@@ -22,7 +22,7 @@ please install it and rerun this script."
 }
 
 checkIfDependenceInstalled() {
-  commands=(vim git node npm go)
+  commands=(vim git node npm go java)
   for command in "${commands[@]}"
   do
     checkIfCommandAvailable $command
