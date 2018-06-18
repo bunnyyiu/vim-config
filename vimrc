@@ -140,6 +140,9 @@ call SetupJST()
 " Go lang support
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
+" Groovy indent
+Plug 'vim-scripts/groovyindent-unix'
+
 call plug#end()
 
 " Shortcut
