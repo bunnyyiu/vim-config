@@ -90,4 +90,4 @@ installGrip
 installClangFormat
 installGoogleJavaFormat
 
-echo "Happy Coding!"
+echo "Happy Hacking !"
