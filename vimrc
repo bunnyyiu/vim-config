@@ -14,7 +14,7 @@ function! BuildYCM(info)
   " - status: 'installed', 'updated', or 'unchanged'
   " - force:  set on PlugInstall! or PlugUpdate!
   if a:info.status == 'installed' || a:info.force
-    !./install.py --clang-completer --system-libclang
+    !./install.py --clang-completer --go-completer --js-completer --java-completer
   endif
 endfunction
 Plug 'Valloric/YouCompleteMe', { 'do': function('BuildYCM') }
@@ -146,13 +146,9 @@ Plug 'google/vim-codefmt'
 Plug 'google/vim-glaive'
 call plug#end()
 
-call glaive#Install()
+Plug 'ekalinin/Dockerfile.vim'
 
-au BufNewFile,BufRead *.json set filetype=javascript
-au BufNewFile,BufRead *.ejs set filetype=jst
-au BufNewFile,BufRead *.go set filetype=go
-au BufNewFile,BufRead Jenkinsfile* set syntax=groovy
-au BufNewFile,BufRead Jenkinsfile* set filetype=groovy
+call glaive#Install()
 
 Glaive codefmt plugin[mappings]
 Glaive codefmt google_java_executable="java -jar ~/.vim/java/google-java-format-VERSION-all-deps.jar"
@@ -167,6 +163,8 @@ augroup autoformat_settings
   autocmd FileType java AutoFormatBuffer google-java-format
   autocmd FileType python AutoFormatBuffer yapf
   " Alternative: autocmd FileType python AutoFormatBuffer autopep8
+  autocmd BufNewFile,BufRead Jenkinsfile* set syntax=groovy
+  autocmd BufNewFile,BufRead Jenkinsfile* set filetype=groovy
 augroup END
 
 " Shortcut
