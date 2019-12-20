@@ -72,7 +72,7 @@ installClangFormat() {
 installGoogleJavaFormat() {
   if [ ! -f ~/.vim/java/google-java-format-VERSION-all-deps.jar ]; then
     mkdir -p ~/.vim/java
-    jar="https://github.com/google/google-java-format/releases/download/google-java-format-1.6/google-java-format-1.6-all-deps.jar"
+    jar="https://github.com/google/google-java-format/releases/download/google-java-format-1.7/google-java-format-1.7-all-deps.jar"
     wget $jar -O ~/.vim/java/google-java-format-VERSION-all-deps.jar
   fi
 }
