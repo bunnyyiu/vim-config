@@ -84,10 +84,11 @@ checkIfDependenceInstalled
 createVIMDirectory
 installVIMConfig
 
-installPlugin
+installGoogleJavaFormat
 installESlint
 installGrip
 installClangFormat
-installGoogleJavaFormat
+
+installPlugin
 
 echo "Happy Hacking !"
