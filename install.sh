@@ -4,7 +4,7 @@ current_path="$( cd "$( dirname "$0" )" && pwd)"
 os=`uname`
 
 checkIfOSSupported() {
-  supported_os=(Linux Darwin)
+  supported_os=(Darwin)
   if [[ ! ${supported_os[@]} =~ $os ]]; then
     echo "Sorry, your OS is not supported."
     echo "This script only support ${supported_os[*]}"
