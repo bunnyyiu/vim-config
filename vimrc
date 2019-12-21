@@ -14,6 +14,7 @@ function! BuildYCM(info)
   " - status: 'installed', 'updated', or 'unchanged'
   " - force:  set on PlugInstall! or PlugUpdate!
   if a:info.status == 'installed' || a:info.force
+    !git submodule update --init --recursive
     !./install.py --clang-completer --go-completer --js-completer --java-completer
   endif
 endfunction
