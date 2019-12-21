@@ -144,9 +144,10 @@ Plug 'google/vim-codefmt'
 " Also add Glaive, which is used to configure codefmt's maktaba flags. See
 " `:help :Glaive` for usage.
 Plug 'google/vim-glaive'
-call plug#end()
 
+"Dockerfile support"
 Plug 'ekalinin/Dockerfile.vim'
+call plug#end()
 
 call glaive#Install()
 
