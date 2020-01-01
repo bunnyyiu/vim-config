@@ -38,6 +38,16 @@ createVIMDirectory() {
   mkdir -p ~/.vim
 }
 
+installTSConfig() {
+  cat << EOF > ~/jsconfig.json
+{
+    "compilerOptions": {
+        "checkJs": true
+    }
+}
+EOF
+}
+
 installPlugin() {
   vim +PlugUpgrade +qall
   vim +PlugClean +PlugUpdate +PlugInstall +qall
@@ -83,6 +93,9 @@ checkIfDependenceInstalled
 
 createVIMDirectory
 installVIMConfig
+
+# https://github.com/ycm-core/YouCompleteMe/blob/9e2ab00bd54cf41787079bcc22e8d67ce9b27ec2/README.md#javascript-and-typescript-semantic-completion
+installTSConfig
 
 installGoogleJavaFormat
 installESlint
