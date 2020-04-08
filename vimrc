@@ -15,7 +15,7 @@ function! BuildYCM(info)
   " - force:  set on PlugInstall! or PlugUpdate!
   if a:info.status == 'installed' || a:info.force
     !git submodule update --init --recursive
-    !./install.py --clang-completer --go-completer --ts-completer --java-completer
+    !./install.py --clang-completer --go-completer --ts-completer
   endif
 endfunction
 Plug 'Valloric/YouCompleteMe', { 'do': function('BuildYCM') }
@@ -44,9 +44,6 @@ function! SetupEasyMotion()
 endfunction
 Plug 'Lokaltog/vim-easymotion'
 call SetupEasyMotion()
-
-" Write HTML faster
-Plug 'rstacruz/sparkup', { 'rtp': 'vim/' }
 
 " Directory listing
 function! SetupNerdtree()
@@ -124,13 +121,6 @@ function! SetupJavascript()
 endfunction
 Plug 'pangloss/vim-javascript'
 call SetupJavascript()
-
-" JST support
-function! SetupJST()
-  let g:indent_jst_block = 0
-endfunction
-Plug 'bunnyyiu/vim-jst'
-call SetupJST()
 
 " Go lang support
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
