@@ -1,3 +1,5 @@
+set nocompatible
+
 " Plug Config
 " Install Plug
 if empty(glob('~/.vim/autoload/plug.vim'))
@@ -8,6 +10,11 @@ endif
 
 call plug#begin('~/.vim/plugged')
 
+" Automatically install missing plugins on startup
+if !empty(filter(copy(g:plugs), '!isdirectory(v:val.dir)'))
+  autocmd VimEnter * PlugInstall | q
+endif
+
 function! BuildYCM(info)
   " info is a dictionary with 3 fields
   " - name:   name of the plugin
@@ -15,7 +22,7 @@ function! BuildYCM(info)
   " - force:  set on PlugInstall! or PlugUpdate!
   if a:info.status == 'installed' || a:info.force
     !git submodule update --init --recursive
-    !./install.py --clang-completer --go-completer --ts-completer
+    !python3 ./install.py --clang-completer --go-completer --ts-completer
   endif
 endfunction
 Plug 'Valloric/YouCompleteMe', { 'do': function('BuildYCM') }
@@ -128,6 +135,9 @@ Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 " Groovy indent
 Plug 'vim-scripts/groovyindent-unix'
 
+"Dockerfile support"
+Plug 'ekalinin/Dockerfile.vim'
+
 " Add maktaba and codefmt to the runtimepath.
 " (The latter must be installed before it can be used.)
 Plug 'google/vim-maktaba'
@@ -136,8 +146,6 @@ Plug 'google/vim-codefmt'
 " `:help :Glaive` for usage.
 Plug 'google/vim-glaive'
 
-"Dockerfile support"
-Plug 'ekalinin/Dockerfile.vim'
 call plug#end()
 
 call glaive#Install()
