@@ -21,14 +21,9 @@ function! BuildYCM(info)
   " - status: 'installed', 'updated', or 'unchanged'
   " - force:  set on PlugInstall! or PlugUpdate!
   if a:info.status == 'installed' || a:info.status == 'updated' || a:info.force
-    !brew install clang-format
-    !git submodule update --init --recursive
-    !python3 ./install.py --clang-completer --go-completer --ts-completer
-    !cat << EOF > ~/jsconfig.json
-{
-    "compilerOptions": {
-        "checkJs": true
-    }
+    silent !brew install clang-format
+    silent !git submodule update --init --recursive
+    silent !python3 ./install.py --clang-completer --go-completer --ts-completer
 }
   endif
 endfunction
@@ -77,7 +72,7 @@ function! SetupSyntastic(info)
   " - status: 'installed', 'updated', or 'unchanged'
   " - force:  set on PlugInstall! or PlugUpdate!
   if a:info.status == 'installed' || a:info.status == 'updated' || a:info.force
-    !npm install eslint -g
+    silent !npm install eslint -g
   endif
   set statusline+=%#warningmsg#
   set statusline+=%{SyntasticStatuslineFlag()}
@@ -99,7 +94,7 @@ function! SetupMarkdownPreview(info)
   " - status: 'installed', 'updated', or 'unchanged'
   " - force:  set on PlugInstall! or PlugUpdate!
   if a:info.status == 'installed' || a:info.status == 'updated' || a:info.force
-    !brew install grip
+    silent !brew install grip
   endif
   let vim_markdown_preview_github=1
 endfunction
@@ -152,7 +147,7 @@ function! InstallGodoctor(info)
   " - status: 'installed', 'updated', or 'unchanged'
   " - force:  set on PlugInstall! or PlugUpdate!
   if a:info.status == 'installed' || a:info.status == 'updated' || a:info.force
-    go get -u github.com/godoctor/godoctor
+    silent !go get -u github.com/godoctor/godoctor
   endif
 endfunction
 Plug 'godoctor/godoctor.vim', { 'do': function('InstallGodoctor') }
@@ -176,8 +171,8 @@ function! InstallGoogleJavaFormat(info)
   " - status: 'installed', 'updated', or 'unchanged'
   " - force:  set on PlugInstall! or PlugUpdate!
   if a:info.status == 'installed' || a:info.status == 'updated' || a:info.force
-    !mkdir -p ~/.vim/java
-    !wget https://github.com/google/google-java-format/releases/download/google-java-format-1.7/google-java-format-1.7-all-deps.jar -O ~/.vim/java/google-java-format-1.7-all-deps.jar
+    silent !mkdir -p ~/.vim/java
+    silent !wget https://github.com/google/google-java-format/releases/download/google-java-format-1.7/google-java-format-1.7-all-deps.jar -O ~/.vim/java/google-java-format-1.7-all-deps.jar
   endif
 endfunction
 Plug 'google/vim-glaive', { 'do': function('InstallGoogleJavaFormat') }

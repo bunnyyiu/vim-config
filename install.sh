@@ -22,7 +22,7 @@ please install it and rerun this script."
 }
 
 checkIfDependenceInstalled() {
-  commands=(vim git node npm go java)
+  commands=(vim git node npm go java wget)
   for command in "${commands[@]}"
   do
     checkIfCommandAvailable $command
@@ -50,7 +50,7 @@ EOF
 
 installPlugin() {
   vim +PlugUpgrade +qall
-  vim +PlugClean +PlugUpdate +PlugInstall +qall
+  vim +PlugClean +PlugInstall +PlugUpdate +qall
 }
 
 #check OS and dependences
@@ -60,9 +60,9 @@ checkIfDependenceInstalled
 createVIMDirectory
 installVIMConfig
 
+installPlugin
+
 # https://github.com/ycm-core/YouCompleteMe/blob/9e2ab00bd54cf41787079bcc22e8d67ce9b27ec2/README.md#javascript-and-typescript-semantic-completion
 installJSConfig
-
-installPlugin
 
 echo "Happy Hacking !"
