@@ -10,6 +10,13 @@ endif
 
 call plug#begin('~/.vim/plugged')
 
+function! PlugLoaded(name)
+  return (
+      \ has_key(g:plugs, a:name) &&
+      \ isdirectory(g:plugs[a:name].dir) &&
+      \ stridx(&rtp, g:plugs[a:name].dir) >= 0)
+endfunction
+
 " Automatically install missing plugins on startup
 if !empty(filter(copy(g:plugs), '!isdirectory(v:val.dir)'))
   autocmd VimEnter * PlugInstall | q
@@ -179,10 +186,12 @@ Plug 'google/vim-glaive', { 'do': function('InstallGoogleJavaFormat') }
 
 call plug#end()
 
-call glaive#Install()
+if PlugLoaded('vim-glaive')
+  call glaive#Install()
 
-Glaive codefmt plugin[mappings]
-Glaive codefmt google_java_executable="java -jar ~/.vim/java/google-java-format-1.7-all-deps.jar"
+  Glaive codefmt plugin[mappings]
+  Glaive codefmt google_java_executable="java -jar ~/.vim/java/google-java-format-1.7-all-deps.jar"
+endif
 
 augroup autoformat_settings
   autocmd FileType bzl AutoFormatBuffer buildifier
