@@ -21,14 +21,21 @@ function! BuildYCM(info)
   " - status: 'installed', 'updated', or 'unchanged'
   " - force:  set on PlugInstall! or PlugUpdate!
   if a:info.status == 'installed' || a:info.status == 'updated' || a:info.force
+    !brew install clang-format
     !git submodule update --init --recursive
     !python3 ./install.py --clang-completer --go-completer --ts-completer
+    !cat << EOF > ~/jsconfig.json
+{
+    "compilerOptions": {
+        "checkJs": true
+    }
+}
   endif
 endfunction
 Plug 'Valloric/YouCompleteMe', { 'do': function('BuildYCM') }
 
 " Easy navigation
-function! SetupEasyMotion()
+function! SetupEasyMotion(info)
   let g:EasyMotion_leader_key = "<Leader>"
   let g:EasyMotion_do_mapping = 0 " Disable default mappings
 
@@ -49,24 +56,29 @@ function! SetupEasyMotion()
   map <Leader>j <Plug>(easymotion-j)
   map <Leader>k <Plug>(easymotion-k)
 endfunction
-Plug 'Lokaltog/vim-easymotion'
-call SetupEasyMotion()
+Plug 'Lokaltog/vim-easymotion', { 'do': function('SetupEasyMotion') }
 
 " Directory listing
-function! SetupNerdtree()
+function! SetupNerdtree(info)
   "open NERDTree with Ctrl+n
   map <F3> :NERDTreeToggle<CR>
   "open a NERDTree automatically when vim starts up if no files were specified
   "autocmd vimenter * if !argc() | NERDTree | endif
 endfunction
-Plug 'scrooloose/nerdtree'
-call SetupNerdtree()
+Plug 'scrooloose/nerdtree', { 'do': function('SetupNerdtree') }
 
 " Groovy syntax
 Plug 'vim-scripts/groovy.vim'
 
 " Syntax checking hacks for vim
-function! SetupSyntastic()
+function! SetupSyntastic(info)
+  " info is a dictionary with 3 fields
+  " - name:   name of the plugin
+  " - status: 'installed', 'updated', or 'unchanged'
+  " - force:  set on PlugInstall! or PlugUpdate!
+  if a:info.status == 'installed' || a:info.status == 'updated' || a:info.force
+    !npm install eslint -g
+  endif
   set statusline+=%#warningmsg#
   set statusline+=%{SyntasticStatuslineFlag()}
   set statusline+=%*
@@ -78,23 +90,27 @@ function! SetupSyntastic()
   let g:syntastic_javascript_checkers = ['eslint']
   let g:syntastic_javascript_eslint_exec = 'eslint'
 endfunction
-Plug 'vim-syntastic/syntastic'
-call SetupSyntastic()
+Plug 'vim-syntastic/syntastic', { 'do': function('SetupSyntastic') }
 
 " Markdown Preview
-function! SetupMarkdownPreview()
+function! SetupMarkdownPreview(info)
+  " info is a dictionary with 3 fields
+  " - name:   name of the plugin
+  " - status: 'installed', 'updated', or 'unchanged'
+  " - force:  set on PlugInstall! or PlugUpdate!
+  if a:info.status == 'installed' || a:info.status == 'updated' || a:info.force
+    !brew install grip
+  endif
   let vim_markdown_preview_github=1
 endfunction
-Plug 'JamshedVesuna/vim-markdown-preview'
-call SetupMarkdownPreview()
+Plug 'JamshedVesuna/vim-markdown-preview', { 'do': function('SetupMarkdownPreview') }
 
 "Hashicorp Tools"
 Plug 'hashivim/vim-hashicorp-tools'
 
 " For snippets"
 " Track the engine.
-Plug 'SirVer/ultisnips'
-function! SetupUltisnips()
+function! SetupUltisnips(info)
   " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
   let g:UltiSnipsExpandTrigger="<c-j>"
   let g:UltiSnipsJumpForwardTrigger="<c-b>"
@@ -103,7 +119,7 @@ function! SetupUltisnips()
   " If you want :UltiSnipsEdit to split your window.
   let g:UltiSnipsEditSplit="vertical"
 endfunction
-call SetupUltisnips()
+Plug 'SirVer/ultisnips', { 'do': function('SetupUltisnips') }
 
 " Snippets are separated from the engine. Add this if you want them:
 Plug 'honza/vim-snippets'
@@ -111,23 +127,21 @@ Plug 'bunnyyiu/vim-kubernetes'
 
 "Fuzzy File Finder
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-function! SetupFzf()
+function! SetupFzf(info)
   " Ctrl-P for fzf
   nnoremap <silent> <C-p> :Files<CR>
 endfunction
-Plug 'junegunn/fzf.vim'
-call SetupFzf()
+Plug 'junegunn/fzf.vim', { 'do': function('SetupFzf') }
 
 " JavaScript support
-function! SetupJavascript()
+function! SetupJavascript(info)
   let g:html_indent_inctags = "body,head,tbody,ul,li,p"
   "no indent on first line of script"
   let g:html_indent_script1 = "zero"
   "no indent on first line of style"
   let g:html_indent_style1 = "zero"
 endfunction
-Plug 'pangloss/vim-javascript'
-call SetupJavascript()
+Plug 'pangloss/vim-javascript', { 'do': function('SetupJavascript') }
 
 " Go lang support
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
@@ -153,16 +167,27 @@ Plug 'ekalinin/Dockerfile.vim'
 " (The latter must be installed before it can be used.)
 Plug 'google/vim-maktaba'
 Plug 'google/vim-codefmt'
+
 " Also add Glaive, which is used to configure codefmt's maktaba flags. See
 " `:help :Glaive` for usage.
-Plug 'google/vim-glaive'
+function! InstallGoogleJavaFormat(info)
+  " info is a dictionary with 3 fields
+  " - name:   name of the plugin
+  " - status: 'installed', 'updated', or 'unchanged'
+  " - force:  set on PlugInstall! or PlugUpdate!
+  if a:info.status == 'installed' || a:info.status == 'updated' || a:info.force
+    !mkdir -p ~/.vim/java
+    !wget https://github.com/google/google-java-format/releases/download/google-java-format-1.7/google-java-format-1.7-all-deps.jar -O ~/.vim/java/google-java-format-1.7-all-deps.jar
+  endif
+endfunction
+Plug 'google/vim-glaive', { 'do': function('InstallGoogleJavaFormat') }
 
 call plug#end()
 
 call glaive#Install()
 
 Glaive codefmt plugin[mappings]
-Glaive codefmt google_java_executable="java -jar ~/.vim/java/google-java-format-VERSION-all-deps.jar"
+Glaive codefmt google_java_executable="java -jar ~/.vim/java/google-java-format-1.7-all-deps.jar"
 
 augroup autoformat_settings
   autocmd FileType bzl AutoFormatBuffer buildifier

@@ -38,7 +38,7 @@ createVIMDirectory() {
   mkdir -p ~/.vim
 }
 
-installTSConfig() {
+installJSConfig() {
   cat << EOF > ~/jsconfig.json
 {
     "compilerOptions": {
@@ -53,40 +53,6 @@ installPlugin() {
   vim +PlugClean +PlugUpdate +PlugInstall +qall
 }
 
-installESlint() {
-  npm install eslint -g
-  if which eslint &> /dev/null; then
-    echo "ESLint installed"
-  else
-    echo "Error in installing ESLint"
-    exit 1
-  fi
-}
-
-# This is for markdown preview
-installGrip() {
-  brew install grip
-  if ! which grip &> /dev/null; then
-    echo "grip is not installed"
-  fi
-}
-
-# This install clang-format
-installClangFormat() {
-  brew install clang-format
-  if ! which clang-format &> /dev/null; then
-    echo "clang-format is not installed"
-  fi
-}
-
-installGoogleJavaFormat() {
-  if [ ! -f ~/.vim/java/google-java-format-VERSION-all-deps.jar ]; then
-    mkdir -p ~/.vim/java
-    jar="https://github.com/google/google-java-format/releases/download/google-java-format-1.7/google-java-format-1.7-all-deps.jar"
-    wget $jar -O ~/.vim/java/google-java-format-VERSION-all-deps.jar
-  fi
-}
-
 #check OS and dependences
 checkIfOSSupported
 checkIfDependenceInstalled
@@ -95,12 +61,7 @@ createVIMDirectory
 installVIMConfig
 
 # https://github.com/ycm-core/YouCompleteMe/blob/9e2ab00bd54cf41787079bcc22e8d67ce9b27ec2/README.md#javascript-and-typescript-semantic-completion
-installTSConfig
-
-installGoogleJavaFormat
-installESlint
-installGrip
-installClangFormat
+installJSConfig
 
 installPlugin
 
