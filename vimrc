@@ -20,7 +20,7 @@ function! BuildYCM(info)
   " - name:   name of the plugin
   " - status: 'installed', 'updated', or 'unchanged'
   " - force:  set on PlugInstall! or PlugUpdate!
-  if a:info.status == 'installed' || a:info.force
+  if a:info.status == 'installed' || a:info.status == 'updated' || a:info.force
     !git submodule update --init --recursive
     !python3 ./install.py --clang-completer --go-completer --ts-completer
   endif
@@ -131,6 +131,17 @@ call SetupJavascript()
 
 " Go lang support
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+
+function! InstallGodoctor(info)
+  " info is a dictionary with 3 fields
+  " - name:   name of the plugin
+  " - status: 'installed', 'updated', or 'unchanged'
+  " - force:  set on PlugInstall! or PlugUpdate!
+  if a:info.status == 'installed' || a:info.status == 'updated' || a:info.force
+    go get -u github.com/godoctor/godoctor
+  endif
+endfunction
+Plug 'godoctor/godoctor.vim', { 'do': function('InstallGodoctor') }
 
 " Groovy indent
 Plug 'vim-scripts/groovyindent-unix'
