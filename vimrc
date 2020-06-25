@@ -30,7 +30,7 @@ function! BuildYCM(info)
   if a:info.status == 'installed' || a:info.status == 'updated' || a:info.force
     silent !brew install clang-format
     silent !git submodule update --init --recursive
-    silent !python3 ./install.py --clang-completer --go-completer --ts-completer
+    silent !python3 ./install.py --clang-completer --go-completer
 }
   endif
 endfunction
